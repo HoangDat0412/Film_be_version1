@@ -1,7 +1,7 @@
 const { type } = require("os");
 const {Films,Actor,FilmType, sequelize,Comments,FavouriteFilm,Rate} = require("../models")
 const fs = require('fs');
-const { DOMAIN } = require("../util/config");
+const LINK_BE = require("../util/config");
 const createFilm = async (req,res)=>{
     const data = req.body  
     try {
@@ -255,7 +255,7 @@ const uploadFilm = async (req,res)=>{
     const trailer = req.files['trailer'][0].path;
     let imgurl,trailerurl,srcurl
     if(process.env.NODE_ENV === "production"){
-        imgurl = `${DOMAIN}${img.slice(img.indexOf("/public"))}`
+        imgurl = `${LINK_BE}${img.slice(img.indexOf("/public"))}`
         trailerurl = `${DOMAIN}${trailer.slice(trailer.indexOf("/public"))}`
         srcurl = `${DOMAIN}${src.slice(src.indexOf("/public"))}`
     }else{
@@ -446,7 +446,7 @@ const handleUpload = (type) =>{
         let linkfile = file.path
         let fileurl;
         if(process.env.NODE_ENV === "production"){
-            fileurl = `${DOMAIN}${linkfile.slice(linkfile.indexOf("/public"))}`
+            fileurl = `${LINK_BE}${linkfile.slice(linkfile.indexOf("/public"))}`
         }else{
             fileurl = `http://localhost:4000\\${linkfile.slice(linkfile.indexOf("public"))}`
         }
